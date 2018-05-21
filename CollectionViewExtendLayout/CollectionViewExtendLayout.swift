@@ -32,11 +32,9 @@ class CollectionViewExtendLayout: UICollectionViewFlowLayout {
             return nil
         }
         
-        NSLog("%d", seletedIndexPath.row)
-        
-        let selectedAttributes = super.layoutAttributesForItem(at: seletedIndexPath)
-        selectedAttributes?.transform = CGAffineTransform(scaleX: 1.42, y: 1.42)
-        
+//        let selectedAttributes = super.layoutAttributesForItem(at: seletedIndexPath)?.copy() as? UICollectionViewLayoutAttributes
+//        selectedAttributes?.transform = CGAffineTransform(scaleX: itemScale * 0.9, y: itemScale * 0.9)
+//
 //
 //        let attributes = super.layoutAttributesForElements(in: rect)
 //        attributes?.forEach({ (eachAttributes: UICollectionViewLayoutAttributes) in

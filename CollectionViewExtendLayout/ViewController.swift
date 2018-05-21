@@ -19,13 +19,14 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        self.automaticallyAdjustsScrollViewInsets = false
         setUpCollectionView()
     }
     
     func setUpCollectionView() {
         
         let collectionViewHeight = CGFloat(150)
-        let layout = CollectionViewExtendLayout()
+        let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = itemSize
 //        layout.estimatedItemSize = CGSize(width: 70, height: 100)
@@ -57,7 +58,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        NSLog("%d", indexPath.row)
+        
         collectionView.expandItemAtIndexPath(indexPath: indexPath, animated: true)
     }
 }
