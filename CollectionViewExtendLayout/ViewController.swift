@@ -12,10 +12,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
 
     let cellIdentifier = "Cell"
     var collectionView: UICollectionView?
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        collectionView?.contentOffset = CGPoint(x: 60, y: 0)
-    }
+    let itemSize = CGSize(width: 70, height: 100)
+    let itemScale = CGFloat(70.0 / 100/0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +27,12 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         let collectionViewHeight = CGFloat(150)
         let layout = CollectionViewExtendLayout()
         layout.scrollDirection = .horizontal
-        layout.itemSize = CGSize(width: 70, height: 100)
+        layout.itemSize = itemSize
 //        layout.estimatedItemSize = CGSize(width: 70, height: 100)
 //        layout.sectionInset = UIEdgeInsets(top: 15, left: 0, bottom: 15, right: 0)
         
         let collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height - collectionViewHeight - 20, width: view.frame.width, height: collectionViewHeight), collectionViewLayout: layout)
+        collectionView.contentInset = UIEdgeInsets(top: collectionViewHeight - 1, left: -1 * (itemSize.width / itemScale - itemSize.width) * 0.5, bottom: 0, right: 0)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "CollectionViewCell", bundle: nil), forCellWithReuseIdentifier: cellIdentifier)
@@ -50,12 +49,15 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! CollectionViewCell
+        cell.layer.anchorPoint = CGPoint(x: 0.5, y: 1)
+        
         cell.backgroundColor = UIColor.red
         cell.label.text = String(format: "%d", indexPath.row)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        NSLog("%d", indexPath.row)
         collectionView.expandItemAtIndexPath(indexPath: indexPath, animated: true)
     }
 }
